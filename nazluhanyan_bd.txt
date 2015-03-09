@@ -1,0 +1,27 @@
+
+create table `groups` (
+  `ID` int(5) not null auto_increment,
+  `Name` varchar(10) not null,
+  primary key (`ID`)
+)
+
+create table `Students` (
+  `ID` int(5) not null auto_increment,
+  `GroupID` int(5) not null,
+  `Name` varchar(20) not null,
+  'SurName' varchar(20) not null,
+  primary key (`ID`),
+  key `GroupID_idx` (`GroupID`),
+  constraint `GroupID` foreign key (`GroupID`) references `groups` (`ID`)
+)
+
+
+DELIMITER //  
+  
+CREATE PROCEDURE `vseimena` (IN imena VARCHAR(20))  
+BEGIN   
+DECLARE vseimena INT;
+SELECT Count(*) FROM students WHERE Name = imena INTO imena;
+RETURN imena;
+END
+
